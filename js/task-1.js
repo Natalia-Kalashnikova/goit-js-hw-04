@@ -1,28 +1,50 @@
 /**
- * Напиши функцію slugify(title), яка приймає заголовок статті, 
- * параметр title і повертає slug, створений із цього рядка.
- * -Значенням параметра title будуть рядки, слова яких розділені лише пробілами.
- * -Усі символи slug повинні бути в нижньому регістрі.
- * -Усі слова slug повинні бути розділені тире.
+ * Напиши функцію isEnoughCapacity(products, containerSize), 
+ * яка обчислює, чи помістяться всі товари в контейнер при пакуванні.
+ * Функція оголошує два параметри:
+ * 
+ * -products — об’єкт, у якому ключі містять назви товарів, 
+ * а їхні значення — кількість цих товарів. Наприклад, { apples: 2, grapes: 4 }.
+ * -containerSize — число, максимальна кількість одиниць товарів, 
+ * яку в себе може вмістити контейнер.
+ * Функція має повернути результат перевірки, чи помістяться всі товари в контейнер. 
+ * Тобто порахувати загальну кількість товарів в об’єкті products 
+ * і повернути true, якщо вона менше або дорівнює containerSize, і false, якщо ні.
 */
 
-/** Improvments */
-
-// function slugify(title) {
-//     const normalize = title.toLowerCase(); //переведення у нижній регістер
-//     const words = normalize.split(" "); //розділення рядка на слова
-//     return words.join("-");
+// function isEnoughCapacity(products, containerSize) {
+//     let quantity = 0;
+//     const values = Object.values(products); //створення масиву значень властивостей products
+//     for (const value of values) {   //перебір властивостей масиву 
+//         quantity += value;  //додавання об'єму кожного продукту
+//     }
+//     return quantity <= containerSize;  //перевірка, чи помістяться всі товари в контейнер, та повернення
 // }
 
+
 /** Improvments */
 
-function slugify(title) {
-    const words = title.toLowerCase().split(" ");
-    return words.join("-");
+function isEnoughCapacity(products, containerSize) {
+    let quantity = 0;
+    for (const product in products) {   
+        quantity += products[product];  
+    }
+    return quantity <= containerSize;  
 }
 
 
-console.log(slugify("Arrays for begginers")); // "arrays-for-begginers"
-console.log(slugify("English for developer")); // "english-for-developer"
-console.log(slugify("Ten secrets of JavaScript")); // "ten-secrets-of-javascript"
-console.log(slugify("How to become a JUNIOR developer in TWO WEEKS")); // "how-to-become-a-junior-developer-in-two-weeks"
+console.log(
+  isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)
+); // true
+
+console.log(
+  isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)
+); // false
+
+console.log(
+  isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)
+); // true
+
+console.log(
+  isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)
+); // false
